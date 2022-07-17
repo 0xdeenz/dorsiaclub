@@ -6,7 +6,6 @@ import './card.css';
 const OfficeCard = (props) => {
 
     const [tokenMetadata, setTokenMetadata] = useState(null);
-    const [listingPrice, setListingPrice] = useState("?");
     
     const stylizedTokenNumber = () => {
         let num = props.id.toString();
@@ -15,20 +14,19 @@ const OfficeCard = (props) => {
     } 
 
     useEffect(() => {
-
+        let mounted = true;
         async function fetchData() {
             let tokenMetadataURL = null;
             tokenMetadataURL = await props.contract.tokenURI(props.id);
             const response = await fetch(tokenMetadataURL);
             const data = await response.json();
-            if (props.marketplaceSwitchOn) {
-                const listing = await props.mPlaceContract.getLatestMarketItemByTokenId(props.id)
-                const price = ethers.utils.formatEther(listing[0]['price'])
-                setListingPrice(price)
-            }
             setTokenMetadata(data);
         }
-        fetchData();
+        if (mounted) {
+            fetchData();
+        }
+
+        return () => mounted = false;
     // eslint-disable-next-line
     }, [])
 
@@ -61,14 +59,6 @@ const OfficeCard = (props) => {
                     tokenMetadata.card_position ? tokenMetadata.card_position : '? ? ?'
                     : 
                     '? ? ?'
-                }
-                <br />
-                <br />
-                {
-                    props.marketplaceSwitchOn ? 
-                        `Listed for ${listingPrice} MATIC`
-                    :
-                        ""
                 }
             </Card.Text>
             </Card.Body>
