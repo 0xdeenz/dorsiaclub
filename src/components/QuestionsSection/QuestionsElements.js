@@ -146,9 +146,15 @@ export const Content = styled.div`
     transition: height 0.35s;
 `
 
+const Wrapper = styled.div`
+    @media screen and (max-width: 820px) {
+        padding-bottom: 15px;
+    };
+`
+
 export const AccordionContent = ({onClick, itemName, itemContent, isActive}) => {
     return(
-        <>
+        <Wrapper>
             <Header isActive={isActive} onClick={onClick}>
                 {itemName}
                 <HeaderIcon isActive={isActive} className='material-icons'>
@@ -158,7 +164,7 @@ export const AccordionContent = ({onClick, itemName, itemContent, isActive}) => 
             <Content itemName={itemName} isActive={isActive}>
                 <Inner id={itemName}>{itemContent}</Inner>
             </Content>
-        </>
+        </Wrapper>
     )
 }
 

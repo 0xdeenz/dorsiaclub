@@ -141,7 +141,7 @@ const CreateListingSection = (props) => {
                 setAwaitingTx(false);
             }
         } else {
-            props.setErrorMessage(['Price is too low', 'Listing price must be at least 0.05 MATIC'])
+            props.setMessage(['Price is too low', 'Listing price must be at least 0.05 MATIC'])
             setAwaitingTx(false);
         }
     }

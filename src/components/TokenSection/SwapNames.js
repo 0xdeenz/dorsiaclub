@@ -63,7 +63,7 @@ const SwapNameSection = (props) => {
             let balance = await props.provider.getBalance(props.account);
             balance = ethers.utils.formatEther(balance)
             if (balance < ethers.utils.formatEther(updatePrice)) {
-                props.setErrorMessage(['Insufficient funds', 'Make sure your wallet is funded'])
+                props.setMessage(['Insufficient funds', 'Make sure your wallet is funded'])
                 const errorMessage = { code: 403, message: 'Insufficient funds'}
                 throw errorMessage
             }

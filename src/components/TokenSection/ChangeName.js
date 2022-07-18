@@ -286,7 +286,7 @@ class ChangeNameSection extends React.Component {
         let balance = await this.props.provider.getBalance(this.props.account);
         balance = ethers.utils.formatEther(balance)
         if (balance < ethers.utils.formatEther(updatePrice)) {
-            this.props.setErrorMessage(['Insufficient funds', 'Make sure your wallet is funded'])
+            this.props.setMessage(['Insufficient funds', 'Make sure your wallet is funded'])
             return false
         }
 
@@ -351,7 +351,8 @@ class ChangeNameSection extends React.Component {
                 } else {
                     _name = ""  // User wishes to keep the same name, we need to send an empty string to the smart contract
                 }
-                await connectedContract.updateCard(this.props.id, _name, properties, { value: updatePrice })
+                const tx = await connectedContract.updateCard(this.props.id, _name, properties, { value: updatePrice })
+                console.log("TX: ", tx)
             } catch (err) {
                 console.log(err)
             } finally {

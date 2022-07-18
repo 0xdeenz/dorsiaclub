@@ -32,6 +32,8 @@ export const Icon = styled.div`
 `;
 
 export const SidebarWrapper = styled.div`
+    padding-right: 30px;
+    padding-top: 50px;
     color: var(--highlighted-text);
 `;
 

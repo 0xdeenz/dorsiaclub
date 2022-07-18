@@ -148,6 +148,13 @@ const TokenPageElements = (props) => {
             if (prevAccount !== props.account && currentSection !== 'Traits') {
                 setCurrentSection('Traits')
             }
+
+            const awaitingUpdate = await bCardContract.requests(props.id)
+            if (awaitingUpdate) {
+                setLoadingText("This token is currently being processed by the oracle")
+            } else {
+                setLoadingText("")
+            }
         }
         fetchData()
 
@@ -233,20 +240,20 @@ const TokenPageElements = (props) => {
                 </SubSectionMenu>
                 {
                 subSection === "Update card" ?
-                    <ChangeNameSection id={props.id} metadata={tokenMetadata} account={props.account} chainId={props.chainId} provider={props.provider} setErrorMessage={props.setErrorMessage}/>
+                    <ChangeNameSection id={props.id} metadata={tokenMetadata} account={props.account} chainId={props.chainId} provider={props.provider} setMessage={props.setMessage}/>
                 :
-                    <SwapNameSection id={props.id} account={props.account} chainId={props.chainId} provider={props.provider} setErrorMessage={props.setErrorMessage}/>
+                    <SwapNameSection id={props.id} account={props.account} chainId={props.chainId} provider={props.provider} setMessage={props.setMessage}/>
                 }
             </SubSectionWrapper>
         )    
     } else if (currentSection === 'Trade') {
         if (owner === 'account') {
-            section = (<CreateListingSection id={props.id} isApproved={tokenMetadata['is_approved']} account={props.account} chainId={props.chainId} provider={props.provider} setErrorMessage={props.setErrorMessage} />)
+            section = (<CreateListingSection id={props.id} isApproved={tokenMetadata['is_approved']} account={props.account} chainId={props.chainId} provider={props.provider} setMessage={props.setMessage} />)
         } else if (owner === 'marketplaceAddress') {
             // Can buy the token
             section = (
                 <SubSectionWrapper>
-                    <BuyTokenSection id={props.id} metadata={tokenMetadata} account={props.account} chainId={props.chainId} provider={props.provider} setErrorMessage={props.setErrorMessage}/>
+                    <BuyTokenSection id={props.id} metadata={tokenMetadata} account={props.account} chainId={props.chainId} provider={props.provider} setMessage={props.setMessage}/>
                     <MarketplacePricingMenu>
                         Listing price: {tokenMetadata['listing_price']} MATIC <br />
                         Oracle fee: {ethers.utils.formatEther(mPlaceOracleFee)} MATIC
@@ -254,13 +261,13 @@ const TokenPageElements = (props) => {
                 </SubSectionWrapper>
             )
         } else if (owner === 'marketplaceConnectedAccount') {
-            section = (<CancelListingSection id={props.id} metadata={tokenMetadata} account={props.account} chainId={props.chainId} provider={props.provider} setErrorMessage={props.setErrorMessage} />)
+            section = (<CancelListingSection id={props.id} metadata={tokenMetadata} account={props.account} chainId={props.chainId} provider={props.provider} setMessage={props.setMessage} />)
         }
     } else if (currentSection === 'Send') {
         if (owner === 'account') {
-            section = <SendCopySection id={props.id} account={props.account} chainId={props.chainId} provider={props.provider} setErrorMessage={props.setErrorMessage}/>
+            section = <SendCopySection id={props.id} account={props.account} chainId={props.chainId} provider={props.provider} setMessage={props.setMessage}/>
         } else if (owner === 'other') {
-            section = <SendToOwnerSection id={props.id} account={props.account} chainId={props.chainId} provider={props.provider} setErrorMessage={props.setErrorMessage}/>
+            section = <SendToOwnerSection id={props.id} account={props.account} chainId={props.chainId} provider={props.provider} setMessage={props.setMessage}/>
         }
     }
 

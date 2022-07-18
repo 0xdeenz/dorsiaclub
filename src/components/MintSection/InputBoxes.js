@@ -236,7 +236,7 @@ class InputBoxes extends React.Component {
         let balance = await this.props.provider.getBalance(this.props.account);
         balance = ethers.utils.formatEther(balance)
         if (balance < ethers.utils.formatEther(mintPrice)) {
-            this.props.setErrorMessage(['Insufficient funds', 'Make sure your wallet is funded'])
+            this.props.setMessage(['Insufficient funds', 'Make sure your wallet is funded'])
             return false
         }
 

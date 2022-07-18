@@ -244,7 +244,7 @@ const SendCopySection = (props) => {
     const handleSendClick = async () => {
         setAwaitingTx(true);
         if(ethers.utils.getAddress(recipient) === ethers.utils.getAddress(props.account)) {
-            props.setErrorMessage(['Invalid recipient', 'Cannot send Soulbound Card to owner'])
+            props.setMessage(['Invalid recipient', 'Cannot send Soulbound Card to owner'])
             setAwaitingTx(false);
             setRecipient("")
             return
@@ -264,7 +264,7 @@ const SendCopySection = (props) => {
                 setRecipient("")
             }
         } else {
-            props.setErrorMessage(['Invalid recipient', 'Address was already sent this Soulbound Card'])
+            props.setMessage(['Invalid recipient', 'Address was already sent this Soulbound Card'])
             setAwaitingTx(false);
             setRecipient("")
         }

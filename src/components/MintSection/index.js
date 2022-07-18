@@ -62,7 +62,7 @@ const MintElements = (props) => {
                                 account={props.account}
                                 chainId={props.chainId}
                                 provider={props.provider}
-                                setErrorMessage={props.setErrorMessage}
+                                setMessage={props.setMessage}
                             />
                         </Column1>
                         <Column2>

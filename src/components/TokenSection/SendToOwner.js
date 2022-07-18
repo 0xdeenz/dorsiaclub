@@ -205,7 +205,7 @@ const SendToOwnerSection = (props) => {
                 setValue("Your Business Cards")
             }
         } else {
-            props.setErrorMessage(['Invalid recipient', 'Address was already sent this Soulbound Card'])
+            props.setMessage(['Invalid recipient', 'Address was already sent this Soulbound Card'])
             setAwaitingTx(false);
             setValue("Your Business Cards")
         }

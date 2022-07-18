@@ -359,6 +359,7 @@ const Office = (props) => {
 					<DividerLine />
 				</DividerWrapper>
 			</HeadContainer>
+			{ !props.account ? 'You need to connect your account to see the Soulbound Cards you received' : null }
 			<OfficeContainer>
 				{ isLoading ? null : loadedCards }
 			</OfficeContainer>

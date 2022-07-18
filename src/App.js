@@ -21,8 +21,8 @@ function App() {
     new ethers.providers.JsonRpcProvider("https://rpc-mumbai.maticvigil.com")
   ); */
   const provider = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.maticvigil.com")
-  // Array having main message, and submessage -- prompts error to user if set to anything
-  const [errorMessage, setErrorMessage] = useState([]); 
+  // Array having message type, main message, and submessage -- prompts error to user if set to anything
+  const [message, setMessage] = useState([]); 
 
   const toggle = () => {
       setIsOpen(!isOpen)
@@ -49,9 +49,9 @@ function App() {
     <Router>
       <ScrollToTop />
       <Modal 
-        showModal={errorMessage.length !== 0 ? true : false} 
-        setShowModal={setErrorMessage} 
-        modalText={errorMessage}
+        showModal={message.length !== 0 ? true : false} 
+        setShowModal={setMessage} 
+        modalText={message}
       />
       <Sidebar 
         isOpen = {isOpen} 
@@ -67,9 +67,9 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home />} exact="true"/>
-        <Route path="/gallery" element={<GalleryPage account={account} chainId={chainId} provider={provider} setErrorMessage={setErrorMessage}/>} exact="true"/>
-        <Route path="/mint" element={<MintPage account={account} chainId={chainId} provider={provider} setErrorMessage={setErrorMessage}/>} exact="true"/> 
-        <Route path="/office" element={<OfficePage account={account} chainId={chainId} provider={provider} setErrorMessage={setErrorMessage}/>} exact="true"/>
+        <Route path="/gallery" element={<GalleryPage account={account} chainId={chainId} provider={provider} setMessage={setMessage}/>} exact="true"/>
+        <Route path="/mint" element={<MintPage account={account} chainId={chainId} provider={provider} setMessage={setMessage}/>} exact="true"/> 
+        <Route path="/office" element={<OfficePage account={account} chainId={chainId} provider={provider} setMessage={setMessage}/>} exact="true"/>
         {
           // Total of a thousand tokens
           tokenList.map(
@@ -77,7 +77,7 @@ function App() {
             <Route 
               key = {i}
               path = {"/card/" + i} 
-              element = {<TokenPage key={i} id={i} account={account} chainId={chainId} provider={provider} setErrorMessage={setErrorMessage}/>} 
+              element = {<TokenPage key={i} id={i} account={account} chainId={chainId} provider={provider} setMessage={setMessage}/>} 
               account = {account}
               chainId = {chainId}
               exactly 

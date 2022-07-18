@@ -290,7 +290,7 @@ class BuyTokenSection extends React.Component {
         let totalPrice = ethers.utils.parseUnits(this.props.metadata['listing_price']).add(mPlaceOracleFee)
 
         if (balance < ethers.utils.formatEther(totalPrice)) {
-            this.props.setErrorMessage(['Insufficient funds', 'Make sure your wallet is funded'])
+            this.props.setMessage(['Insufficient funds', 'Make sure your wallet is funded'])
             return false
         }
 
